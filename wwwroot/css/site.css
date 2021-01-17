@@ -216,6 +216,36 @@ a:hover {
   }
 }
 
+/*--------------------------------------------------------------
+# (Logout)
+--------------------------------------------------------------*/
+
+.get-started-btn {
+  margin-left: 25px;
+  color: #910222;
+  border-radius: 4px;
+  padding: 7px 25px 8px 25px;
+  white-space: nowrap;
+  transition: 0.3s;
+  font-size: 14px;
+  border: 2px solid #910222;
+  display: inline-block;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.get-started-btn:hover {
+  background:#910222;
+  color: #fff;
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .get-started-btn {
+    margin: 0 48px 0 0;
+    padding: 6px 18px;
+  }
+}
 
 
 
