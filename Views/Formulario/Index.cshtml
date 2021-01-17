@@ -1,0 +1,54 @@
+@model dynamic
+
+@{
+    ViewData["Title"] = "Formulario de Solicitud";
+}
+ 
+ <section id="hero" class="d-flex justify-content-center align-items-center">
+    <div class="container position-relative" data-aos="zoom-in" data-aos-delay="100">
+
+      <h1>Agregar Requerimiento<br></h1>
+      <h1>Agrega tu requerimiento y completa el formulario de acuerdo a tu problema</h1>
+    </div>
+  </section>
+ 
+
+<section class="contact-box" style="background-color: white" >
+    <div class="row no-gutters bg-dark">
+        <div class="col-xl-5 col-lg-12 register-Solicitud">
+        </div>
+        <div class="col-xl-7 col-lg-12 d-flex">
+             <div class="container align-self-center p-6" >
+                 <h1 class="font-weight-bold mb-3" style="color: black;">Completa el formulario de Solicitud</h1>
+                 <br>
+                @foreach (Requerimiento req in @Model.Requerimiento){
+                 <form asp-action="Envio" asp-controller="Formulario" method="POST">
+                     <div class="form-group mb-3">
+                        <label  class="font-weight-bold" style="color: black;">Tipo de Requerimiento:<span class="text-danger">*</span></label>
+                        <br>
+                        <select asp-for="@req.Tipo_Req" class="form-control" style="height: 70px; background-color: #910222; color:white;" >
+                          @foreach (Categoria categoria in @Model.Categorias)
+                          {
+                              <option value="@categoria.ID">@categoria.Nombre</option>
+                          }
+                        </select>
+                         <span class="text-danger"></span>
+                     </div>
+                     <br>
+                     <div class="form-group mb-3">
+                         <label  class="font-weight-bold" style="color: black;">Descripción del Problema:<span class="text-danger">*</span></label>
+                         <textarea type="text"  style="background-color: #910222; color:white;" class="form-control" asp-for="@req.Detalle"></textarea>
+                          <span  class="text-danger"></span>
+                     </div>
+
+                   <br>
+                   <div style="text-align: center;">
+                      <button class="get-started-btn scrollto" style="border-radius: 50px;margin:20px" type="submit">Regístrar</button>
+                   </div>
+             
+                 </form>
+                }
+             </div>
+        </div>
+    </div>
+</section>
