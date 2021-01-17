@@ -694,6 +694,71 @@ a:hover {
   position: relative;
 }
 
+/*--------------------------------------------------------------
+# Hero 
+--------------------------------------------------------------*/
+#hero2 {
+  width: 100%;
+  height: 80vh;
+  background: url("../img/consejeros.jpg") top center;
+  background-size: cover;
+  position: relative;
+}
 
+#hero2:before {
+  content: "";
+  background: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+#hero2 .container {
+  padding-top: 72px;
+}
+
+@media (max-width: 992px) {
+  #hero2 .container {
+    padding-top: 62px;
+  }
+}
+
+#hero2 h1 {
+  margin: 0;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 56px;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+}
+
+#hero2 h2 {
+  color: #eee;
+  margin: 10px 0 0 0;
+  font-size: 24px;
+}
+
+
+@media (min-width: 1024px) {
+  #hero2 {
+    background-attachment: fixed;
+  }
+}
+
+@media (max-width: 768px) {
+  #hero {
+    height: 100vh;
+  }
+  #hero2 h1 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+  #hero2 h2 {
+    font-size: 18px;
+    line-height: 24px;
+  }
+}
 
 
