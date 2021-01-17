@@ -1,0 +1,144 @@
+ @model dynamic
+
+ @{
+   Categoria cat = new Categoria();
+   var listCategoria=@Model.Categorias;
+   string id="", rpta="";
+ }
+
+  <section id="hero2" class="d-flex justify-content-center align-items-center">
+    <div class="container position-relative" data-aos="zoom-in" data-aos-delay="100">
+
+      <h1>Reportes<br></h1>
+      <h1>Visualice los requerimientos con filtros de selección</h1>
+    </div>
+  </section>
+  <br>
+
+  <br>
+
+<div class="container">
+
+<form asp-action="Filtrar" asp-controller="Listado">
+        <div class="form-group mb-5 center">
+        <label class="font-weight-bold center" style="color: black;" >Filtrar por Categoria</label>
+        <select class="form-control" style="height: 70px; background-color: #910222; color:white;" asp-for="@cat.ID">
+            @foreach (Categoria categoria in @listCategoria)
+            {
+              @if(@Model.Selected==categoria.ID){
+                <option value="@categoria.ID" selected>@categoria.Nombre</option>
+              }else{
+                <option value="@categoria.ID">@categoria.Nombre</option>
+              }
+                
+            }
+        </select>
+        <button type="submit" class="get-started-btn center" style="border-radius: 50px;margin:20px;" > Filtrar </button>
+        </div>
+</form>
+  <table class="table searchable sortable center" id='myTable' >
+    <thead>
+      <tr style="background-color: #910222;">
+        <th style="color: white;" scope="col">ID Requerimiento</th>
+        <th style="color: white;" scope="col">ID Estudiante</th>
+        <th style="color: white;" scope="col">Fecha Inicio</th>
+        <th style="color: white;" scope="col">Fecha Finalizacion</th>
+        <th style="color: white;" scope="col">ID Consejero</th>
+        <th style="color: white;" scope="col">Detalle</th>
+        <th style="color: white;" scope="col">Respuesta</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach (Requerimiento req in @Model.Mostrar)
+      {
+        
+        id = "Modal"+@req.ID;
+        rpta = "Rpta"+@req.ID;
+        <tr>
+          <th scope="row">@req.ID</th>
+          <td>@req.User_ID</td>
+          <td>@req.Fecha_Inicio</td>
+
+          @if(@req.Estado=="TERMINADO"){
+            <td>@req.Fecha_Fin</td>
+          }else{
+            <td>----</td>
+          }
+
+          @if(@req.Estado!="PENDIENTE"){
+            <td>@req.Consejero_ID</td>
+          }else{
+            <td>----</td>
+          }
+
+          <td>
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#@id">Ver Detalle</button>
+          </td>
+
+          <div class="modal fade" id="@id" tabindex="-1" role="dialog" aria-hidden="true" style="color: black;">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Detalle del requerimiento:</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <textarea type="text"  style="background-color: #910222; color:white;" class="form-control" readonly>@req.Detalle</textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          @if(@req.Estado =="TERMINADO"){
+            <td>
+              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#@rpta">Ver</button>
+            </td>
+
+            <div class="modal fade" id="@rpta" tabindex="-1" role="dialog" aria-hidden="true" style="color: black;">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Respuesta del consejero:</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <textarea type="text"  style="background-color: #910222; color:white;" class="form-control" readonly>@req.Respuesta</textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          }else{
+            <td>
+              <button type="button" class="btn btn-danger" disabled>Ver </button>
+            </td>
+          }
+        </tr>
+      }
+    </tbody>
+  </table>
+ <script>
+function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[3];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
+  </div>
